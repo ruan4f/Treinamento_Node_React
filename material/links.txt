@@ -1,0 +1,5 @@
+https://coreui.io/react/
+
+https://github.com/coreui/coreui-free-react-admin-template
+
+https://reactjs.org/
