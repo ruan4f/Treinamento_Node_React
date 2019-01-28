@@ -1,3 +1,3 @@
-# Curso - Node e React
+# Treinamento - Node e React
 
-Repositório para projetos aplicados no Curso de Node e React
+Repositório para projetos aplicados no Treinamento de Node e React
