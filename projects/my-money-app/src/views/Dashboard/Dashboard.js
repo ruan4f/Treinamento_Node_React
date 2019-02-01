@@ -1,31 +1,18 @@
 import React, { Component } from 'react';
+import { Row, Container } from 'reactstrap';
 
-class Dashboard extends Component {
-  constructor(props) {
-    super(props);
-
-    this.toggle = this.toggle.bind(this);
-
-    this.state = {
-      dropdownOpen: false,
-    };
-  }
-
-  toggle() {
-    this.setState({
-      dropdownOpen: !this.state.dropdownOpen,
-    });
-  }
-
-  loading = () => <div className="animated fadeIn pt-1 text-center">Loading...</div>
-
+class DashBoard extends Component {
   render() {
-
     return (
-      <div className="animated fadeIn">
+      <div className="app flex-row animated fadeIn align-items-center">
+        <Container>
+          <Row className="justify-content-center">
+            <h1>Bem Vindo</h1>
+          </Row>
+        </Container>
       </div>
     );
   }
 }
 
-export default Dashboard;
+export default DashBoard;
