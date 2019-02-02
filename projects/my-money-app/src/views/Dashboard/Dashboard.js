@@ -4,7 +4,7 @@ import { Row, Container } from 'reactstrap';
 class DashBoard extends Component {
   render() {
     return (
-      <div className="app flex-row animated fadeIn align-items-center">
+      <div className="animated fadeIn">
         <Container>
           <Row className="justify-content-center">
             <h1>Bem Vindo</h1>
