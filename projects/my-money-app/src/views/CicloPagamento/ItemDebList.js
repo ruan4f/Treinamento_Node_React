@@ -1,9 +1,18 @@
 import React, { Component } from 'react';
-import { Table } from 'reactstrap';
+import {
+    Table,
+    Button,
+    Card,
+    CardBody,
+    CardHeader,
+    Col,
+    FormGroup,
+    Input,
+    Label,
+    Row,
+} from 'reactstrap';
 
-function ItemRow(props) {
-    const item = props.item
-
+function ItemRow(item) {
     return (
         <tr key={item.id.toString()}>
             <td>
@@ -17,6 +26,15 @@ function ItemRow(props) {
                 </FormGroup>
             </td>
             <td>
+                <FormGroup>
+                    <Input type="select" name="ccmonth" id="ccmonth">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                    </Input>
+                </FormGroup>
+            </td>
+            <td>
                 <Button size="lg" className="btn btn-success btn-brand icon mr-1 mb-1"><i className="fa fa-plus"></i></Button>
                 <Button size="lg" className="btn btn-danger btn-brand icon mr-1 mb-1"><i className="fa fa-trash-o"></i></Button>
             </td>
@@ -27,23 +45,24 @@ function ItemRow(props) {
 class ItemDebList extends Component {
 
     render() {
-
-        //const userList = usersData.filter((user) => user.id < 10)
+        const debtsList = [{ id: 0, name: "", value: 0, status: "" }];
 
         return (
-            <Table responsive hover>
-                <thead>
-                    <tr>
-                        <th scope="col">Nome</th>
-                        <th scope="col">Valor</th>
-                        <th scope="col">Status</th>
-                        <th scope="col">Ações</th>
-                    </tr>
-                </thead>
-                <tbody>
-
-                </tbody>
-            </Table>
+            <Card>
+                <Table responsive hover>
+                    <thead>
+                        <tr>
+                            <th scope="col">Nome</th>
+                            <th scope="col">Valor</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {debtsList.map(ItemRow)}
+                    </tbody>
+                </Table>
+            </Card>
         )
     }
 }

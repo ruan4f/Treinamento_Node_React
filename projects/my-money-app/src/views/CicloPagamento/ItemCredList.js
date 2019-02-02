@@ -1,9 +1,18 @@
 import React, { Component } from 'react';
-import { Table } from 'reactstrap';
+import { 
+    Table, 
+    Button,
+    Card,
+    CardBody,
+    CardHeader,
+    Col,
+    FormGroup,
+    Input,
+    Label,
+    Row,
+} from 'reactstrap';
 
-function ItemRow(props) {
-    const item = props.item
-
+function ItemRow(item) {
     return (
         <tr key={item.id.toString()}>
             <td>
@@ -27,10 +36,10 @@ function ItemRow(props) {
 class ItemDebList extends Component {
 
     render() {
-
-        //const userList = usersData.filter((user) => user.id < 10)
+        const credsList = [{id:0,name:"",value:0}];
 
         return (
+            <Card>
             <Table responsive hover>
                 <thead>
                     <tr>
@@ -40,9 +49,10 @@ class ItemDebList extends Component {
                     </tr>
                 </thead>
                 <tbody>
-
+                    {credsList.map(ItemRow)}
                 </tbody>
             </Table>
+                        </Card>
         )
     }
 }
