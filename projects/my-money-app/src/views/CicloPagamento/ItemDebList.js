@@ -24,7 +24,7 @@ function ItemRow(props) {
     )
 }
 
-class ItemList extends Component {
+class ItemDebList extends Component {
 
     render() {
 
@@ -36,6 +36,7 @@ class ItemList extends Component {
                     <tr>
                         <th scope="col">Nome</th>
                         <th scope="col">Valor</th>
+                        <th scope="col">Status</th>
                         <th scope="col">Ações</th>
                     </tr>
                 </thead>
@@ -47,4 +48,4 @@ class ItemList extends Component {
     }
 }
 
-export default ItemList;
+export default ItemDebList;
