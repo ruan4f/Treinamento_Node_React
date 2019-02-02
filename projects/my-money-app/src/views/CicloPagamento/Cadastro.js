@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import {
     Button,
     Card,
@@ -22,6 +23,13 @@ class Cadastro extends Component {
                         <Card>
                             <CardHeader>
                                 <strong>Novo Pagamento</strong>
+                                <span className="pull-right">
+                                    <Link
+                                        to={'/ciclo-pagamento'}
+                                        className="btn btn-sm btn-danger">
+                                        Voltar
+                                    </Link>
+                                </span>
                             </CardHeader>
                             <CardBody>
                                 <Row>

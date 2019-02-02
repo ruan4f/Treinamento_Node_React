@@ -10,5 +10,10 @@ export default {
       name: 'My Money',
       class: '',
     },
+    {
+      name: 'Pagamentos',
+      url: '/ciclo-pagamento',
+      icon: 'icon-drop',
+    },
   ],
 };

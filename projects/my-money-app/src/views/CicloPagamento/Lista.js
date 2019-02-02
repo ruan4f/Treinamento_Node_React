@@ -38,6 +38,13 @@ class Lista extends Component {
                         <Card>
                             <CardHeader>
                                 <i className="fa fa-align-justify"></i> Pagamentos
+                                <span className="pull-right">
+                                    <Link
+                                        to={'/ciclo-pagamento/novo'}
+                                        className="btn btn-sm btn-success">
+                                        Novo
+                                    </Link>
+                                </span>
                             </CardHeader>
                             <CardBody>
                                 <Table responsive hover>
