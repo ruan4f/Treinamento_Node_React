@@ -1,9 +1,18 @@
 import React, { Component } from 'react';
-import { Table } from 'reactstrap';
+import {
+    Button,
+    Card,
+    CardBody,
+    CardHeader,
+    Col,
+    FormGroup,
+    Input,
+    Label,
+    Row,
+    Table,
+} from 'reactstrap';
 
-function ItemRow(props) {
-    const item = props.item
-
+function ItemRow(item) {
     return (
         <tr key={item.id.toString()}>
             <td>
@@ -28,21 +37,28 @@ class ItemDebList extends Component {
 
     render() {
 
-        //const userList = usersData.filter((user) => user.id < 10)
+        const credList = [{ id: 0, nome: '', valor: 0 }]
 
         return (
-            <Table responsive hover>
-                <thead>
-                    <tr>
-                        <th scope="col">Nome</th>
-                        <th scope="col">Valor</th>
-                        <th scope="col">Ações</th>
-                    </tr>
-                </thead>
-                <tbody>
-
-                </tbody>
-            </Table>
+            <Card>
+                <CardHeader>
+                    <strong>Créditos</strong>
+                </CardHeader>
+                <CardBody>
+                    <Table responsive hover>
+                        <thead>
+                            <tr>
+                                <th scope="col">Nome</th>
+                                <th scope="col">Valor</th>
+                                <th scope="col">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {credList.map(ItemRow)}
+                        </tbody>
+                    </Table>
+                </CardBody>
+            </Card>
         )
     }
 }

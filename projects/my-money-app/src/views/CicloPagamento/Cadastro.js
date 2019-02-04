@@ -12,6 +12,8 @@ import {
     Row,
 } from 'reactstrap';
 import Summary from './Summary';
+import ItemCredList from './ItemCredList';
+import ItemDebList from './ItemDebList';
 
 class Cadastro extends Component {
 
@@ -100,8 +102,10 @@ class Cadastro extends Component {
 
                 <Row>
                     <Col xs="12" sm="6" lg="6">
+                        <ItemCredList></ItemCredList>
                     </Col>
                     <Col xs="12" sm="6" lg="6">
+                        <ItemDebList></ItemDebList>
                     </Col>
                 </Row>
             </div>
