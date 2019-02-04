@@ -17,6 +17,12 @@ import ItemDebList from './ItemDebList';
 
 class Cadastro extends Component {
 
+    state = {
+        nome: '',
+        mes: 0,
+        ano: 0,
+    }
+
     render() {
         return (
             <div className="animated fadeIn">
