@@ -9,15 +9,19 @@ import {
 
 function ItemRow(item) {
     return (
-        <tr key={item.id.toString()}>
+        <tr key={item._id.toString()}>
             <td>
                 <FormGroup>
-                    <Input type="text" id="nome" placeholder="Informe o nome" required />
+                    <Input type="text" 
+                        value={item.nome}
+                        placeholder="Informe o nome" />
                 </FormGroup>
             </td>
             <td>
                 <FormGroup>
-                    <Input type="text" id="valor" placeholder="Informe o valor" required />
+                    <Input type="text" 
+                        value={item.valor}
+                        placeholder="Informe o valor" />
                 </FormGroup>
             </td>
             <td>
@@ -40,7 +44,7 @@ function ItemRow(item) {
 class ItemDebList extends Component {
 
     render() {
-        const debtsList = [{ id: 0, name: "", value: 0, status: "" }];
+        const debtsList = [{ _id: 0, name: "", value: 0, status: "" }];
 
         return (
             <Card>
