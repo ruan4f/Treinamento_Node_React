@@ -17,6 +17,10 @@ import ItemCredList from './ItemCredList';
 
 class Cadastro extends Component {
 
+    state = {
+
+    };
+
     render() {
         return (
             <div className="animated fadeIn">
@@ -38,7 +42,7 @@ class Cadastro extends Component {
                                     <Col xs="12">
                                         <FormGroup>
                                             <Label htmlFor="name">Nome</Label>
-                                            <Input type="text" id="name" placeholder="Entre com o nome do pagamento" required />
+                                            <Input type="text" id="name" placeholder="Entre com o nome do pagamento" />
                                         </FormGroup>
                                     </Col>
                                 </Row>
