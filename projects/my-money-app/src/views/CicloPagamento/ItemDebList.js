@@ -3,13 +3,8 @@ import {
     Table,
     Button,
     Card,
-    CardBody,
-    CardHeader,
-    Col,
     FormGroup,
     Input,
-    Label,
-    Row,
 } from 'reactstrap';
 
 function ItemRow(item) {
@@ -35,8 +30,8 @@ function ItemRow(item) {
                 </FormGroup>
             </td>
             <td>
-                <Button size="lg" className="btn btn-success btn-brand icon mr-1 mb-1"><i className="fa fa-plus"></i></Button>
-                <Button size="lg" className="btn btn-danger btn-brand icon mr-1 mb-1"><i className="fa fa-trash-o"></i></Button>
+                <Button className="btn btn-success btn-brand icon mr-1 mb-1"><i className="fa fa-plus"></i></Button>
+                <Button className="btn btn-danger btn-brand icon mr-1 mb-1"><i className="fa fa-trash-o"></i></Button>
             </td>
         </tr>
     )

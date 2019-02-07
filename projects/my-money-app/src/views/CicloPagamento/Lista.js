@@ -1,35 +1,41 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Badge, Card, CardBody, CardHeader, Col, Row, Table } from 'reactstrap';
+import { Button, Card, CardBody, CardHeader, Col, Row, Table } from 'reactstrap';
 
-function PagamentoRow(props) {
-    const pagamento = props.pagamento
-    const pagamentoLink = `/ciclo-pagamento/${pagamento.id}`
-
-    const getBadge = (status) => {
-        return status === 'Active' ? 'success' :
-            status === 'Inactive' ? 'secondary' :
-                status === 'Pending' ? 'warning' :
-                    status === 'Banned' ? 'danger' :
-                        'primary'
-    }
+function PagamentoRow(item) {
+    const pagamentoLink = `/ciclo-pagamento/${item.id}`
 
     return (
-        <tr key={pagamento.id.toString()}>
-            <th scope="row"><Link to={pagamentoLink}>{pagamento.id}</Link></th>
-            <td><Link to={pagamentoLink}>{pagamento.nome}</Link></td>
-            <td>{pagamento.ano}</td>
-            <td>{pagamento.mes}</td>
-            <td><Link to={pagamentoLink}><Badge color={getBadge(pagamento.status)}>{pagamento.status}</Badge></Link></td>
+        <tr key={item.id.toString()}>
+            <th scope="row"><Link to={pagamentoLink}>{item.id}</Link></th>
+            <td>{item.nome}</td>
+            <td>{item.ano}</td>
+            <td>{item.mes}</td>
+            <td>
+                <Link to={pagamentoLink}
+                    className="btn btn-success btn-brand icon mr-1 mb-1">
+                    <i className="fa fa-edit"></i>
+                </Link>
+                <Button className="btn btn-danger btn-brand icon mr-1 mb-1"><i className="fa fa-trash-o"></i></Button>
+            </td>
         </tr>
     )
 }
 
 class Lista extends Component {
 
+    deletePagamento = (id) => {
+
+    }
+
     render() {
 
-        //const userList = usersData.filter((user) => user.id < 10)
+        const pagamentosList = [{
+            id: 1,
+            nome: "teste",
+            mes: 1,
+            ano: 2019
+        }]
 
         return (
             <div className="animated fadeIn">
@@ -54,10 +60,11 @@ class Lista extends Component {
                                             <th scope="col">Nome</th>
                                             <th scope="col">Mês</th>
                                             <th scope="col">Ano</th>
+                                            <th scope="col">Ações</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-
+                                        {pagamentosList.map(PagamentoRow)}
                                     </tbody>
                                 </Table>
                             </CardBody>

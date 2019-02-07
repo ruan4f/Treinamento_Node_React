@@ -18,10 +18,28 @@ import ItemCredList from './ItemCredList';
 class Cadastro extends Component {
 
     state = {
-
+        nome: '',
+        mes: 1,
+        ano: 2019,
+        creditos: [],
+        debitos: []
     };
 
+    calculateSummary() {
+        const sum = (t, v) => t + v;
+        return {
+            somaCreditos: this.state.creditos.map(c => + c.valor || 0).reduce(sum, 0),
+            somaDebitos: this.state.debitos.map(d => + d.valor || 0).reduce(sum, 0)
+        };
+    }
+
+    handleInputChange = e => {
+        this.setState({ [e.target]: e.target.value });
+    }
+
     render() {
+        const { somaCreditos, somaDebitos } = this.calculateSummary();
+
         return (
             <div className="animated fadeIn">
                 <Row>
@@ -42,7 +60,10 @@ class Cadastro extends Component {
                                     <Col xs="12">
                                         <FormGroup>
                                             <Label htmlFor="name">Nome</Label>
-                                            <Input type="text" id="name" placeholder="Entre com o nome do pagamento" />
+                                            <Input type="text" id="name"
+                                                onChange={this.handleInputChange}
+                                                value={this.state.nome}
+                                                placeholder="Entre com o nome do pagamento" />
                                         </FormGroup>
                                     </Col>
                                 </Row>
@@ -86,6 +107,11 @@ class Cadastro extends Component {
                                         </FormGroup>
                                     </Col>
                                 </Row>
+                                <Row>
+                                    <Col>
+                                        <Button className="btn btn-block btn-success">Salvar</Button>
+                                    </Col>
+                                </Row>
                             </CardBody>
                         </Card>
                     </Col>
@@ -98,7 +124,7 @@ class Cadastro extends Component {
                                 <strong>Resumo</strong>
                             </CardHeader>
                             <CardBody>
-                                <Summary></Summary>
+                                <Summary credit={somaCreditos} debt={somaDebitos} />
                             </CardBody>
                         </Card>
                     </Col>
@@ -106,10 +132,10 @@ class Cadastro extends Component {
 
                 <Row>
                     <Col xs="12" sm="6" lg="6">
-                        <ItemCredList></ItemCredList>
+                        <ItemCredList />
                     </Col>
                     <Col xs="12" sm="6" lg="6">
-                        <ItemDebList></ItemDebList>
+                        <ItemDebList />
                     </Col>
                 </Row>
             </div>
