@@ -3,6 +3,8 @@ import {
   Table,
   Button,
   Card,
+  CardBody,
+  CardHeader,
   FormGroup,
   Input,
 } from 'reactstrap';
@@ -35,18 +37,23 @@ class ItemDebList extends Component {
 
     return (
       <Card>
-        <Table responsive hover>
-          <thead>
-            <tr>
-              <th scope="col">Nome</th>
-              <th scope="col">Valor</th>
-              <th scope="col">Ações</th>
-            </tr>
-          </thead>
-          <tbody>
-            {credsList.map(ItemRow)}
-          </tbody>
-        </Table>
+        <CardHeader>
+          <strong>Créditos</strong>
+        </CardHeader>
+        <CardBody>
+          <Table responsive hover>
+            <thead>
+              <tr>
+                <th scope="col">Nome</th>
+                <th scope="col">Valor</th>
+                <th scope="col">Ações</th>
+              </tr>
+            </thead>
+            <tbody>
+              {credsList.map(ItemRow)}
+            </tbody>
+          </Table>
+        </CardBody>
       </Card>
     )
   }

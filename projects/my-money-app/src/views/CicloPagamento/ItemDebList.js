@@ -3,6 +3,8 @@ import {
     Table,
     Button,
     Card,
+    CardBody,
+    CardHeader,
     FormGroup,
     Input,
 } from 'reactstrap';
@@ -12,14 +14,14 @@ const ItemRow = (item) => {
         <tr key={item._id}>
             <td>
                 <FormGroup>
-                    <Input type="text" 
+                    <Input type="text"
                         value={item.nome}
                         placeholder="Informe o nome" />
                 </FormGroup>
             </td>
             <td>
                 <FormGroup>
-                    <Input type="text" 
+                    <Input type="text"
                         value={item.valor}
                         placeholder="Informe o valor" />
                 </FormGroup>
@@ -48,19 +50,24 @@ class ItemDebList extends Component {
 
         return (
             <Card>
-                <Table responsive hover>
-                    <thead>
-                        <tr>
-                            <th scope="col">Nome</th>
-                            <th scope="col">Valor</th>
-                            <th scope="col">Status</th>
-                            <th scope="col">Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {debtsList.map(ItemRow)}
-                    </tbody>
-                </Table>
+                <CardHeader>
+                    <strong>Débitos</strong>
+                </CardHeader>
+                <CardBody>
+                    <Table responsive hover>
+                        <thead>
+                            <tr>
+                                <th scope="col">Nome</th>
+                                <th scope="col">Valor</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {debtsList.map(ItemRow)}
+                        </tbody>
+                    </Table>
+                </CardBody>
             </Card>
         )
     }
