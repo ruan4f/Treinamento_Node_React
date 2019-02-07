@@ -18,6 +18,7 @@ import ItemCredList from './ItemCredList';
 class Cadastro extends Component {
 
     state = {
+        _id: '',
         nome: '',
         mes: 1,
         ano: 2019,

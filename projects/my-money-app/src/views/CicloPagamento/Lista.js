@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Card, CardBody, CardHeader, Col, Row, Table } from 'reactstrap';
 
-function PagamentoRow(item) {
+const PagamentoRow = (item) => {
     const pagamentoLink = `/ciclo-pagamento/${item.id}`
 
     return (
@@ -24,18 +24,32 @@ function PagamentoRow(item) {
 
 class Lista extends Component {
 
-    deletePagamento = (id) => {
-
+    state = {
+        pagamentos: []
     }
 
-    render() {
+    componentDidMount() {
+        this.listarPagamentos();
+    }
 
+    listarPagamentos = () => {
         const pagamentosList = [{
             id: 1,
             nome: "teste",
             mes: 1,
             ano: 2019
         }]
+
+        this.setState({ pagamentos: pagamentosList });
+    }
+
+    deletePagamento = (id) => {
+
+    }
+
+    render() {
+
+
 
         return (
             <div className="animated fadeIn">
@@ -64,7 +78,7 @@ class Lista extends Component {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {pagamentosList.map(PagamentoRow)}
+                                        {this.state.pagamentos.map(PagamentoRow)}
                                     </tbody>
                                 </Table>
                             </CardBody>

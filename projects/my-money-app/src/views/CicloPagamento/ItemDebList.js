@@ -7,9 +7,9 @@ import {
     Input,
 } from 'reactstrap';
 
-function ItemRow(item) {
+const ItemRow = (item) => {
     return (
-        <tr key={item._id.toString()}>
+        <tr key={item._id}>
             <td>
                 <FormGroup>
                     <Input type="text" 
@@ -44,7 +44,7 @@ function ItemRow(item) {
 class ItemDebList extends Component {
 
     render() {
-        const debtsList = [{ _id: 0, name: "", value: 0, status: "" }];
+        const debtsList = [{ _id: '', name: '', value: 0, status: '' }];
 
         return (
             <Card>
