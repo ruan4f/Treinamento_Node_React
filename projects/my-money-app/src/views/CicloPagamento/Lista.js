@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Card, CardBody, CardHeader, Col, Row, Table } from 'reactstrap';
+import api from '../../services/api';
 
 const PagamentoRow = (item) => {
     const pagamentoLink = `/ciclo-pagamento/${item.id}`
 
     return (
-        <tr key={item.id.toString()}>
-            <th scope="row"><Link to={pagamentoLink}>{item.id}</Link></th>
+        <tr key={item._id.toString()}>            
             <td>{item.nome}</td>
             <td>{item.ano}</td>
             <td>{item.mes}</td>
@@ -32,15 +32,10 @@ class Lista extends Component {
         this.listarPagamentos();
     }
 
-    listarPagamentos = () => {
-        const pagamentosList = [{
-            id: 1,
-            nome: "teste",
-            mes: 1,
-            ano: 2019
-        }]
+    listarPagamentos = async () => {
+        const response = await api.get('/cicloPagamentos');
 
-        this.setState({ pagamentos: pagamentosList });
+        this.setState({ pagamentos: response.data });
     }
 
     deletePagamento = (id) => {
@@ -48,8 +43,6 @@ class Lista extends Component {
     }
 
     render() {
-
-
 
         return (
             <div className="animated fadeIn">
@@ -69,8 +62,7 @@ class Lista extends Component {
                             <CardBody>
                                 <Table responsive hover>
                                     <thead>
-                                        <tr>
-                                            <th scope="col">Id</th>
+                                        <tr>                                            
                                             <th scope="col">Nome</th>
                                             <th scope="col">Mês</th>
                                             <th scope="col">Ano</th>
