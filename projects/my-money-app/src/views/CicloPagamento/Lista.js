@@ -3,11 +3,11 @@ import { Link } from 'react-router-dom';
 import { Button, Card, CardBody, CardHeader, Col, Row, Table } from 'reactstrap';
 import api from '../../services/api';
 
-const PagamentoRow = (item) => {
-    const pagamentoLink = `/ciclo-pagamento/${item.id}`
+const PagamentoRow = ({ item, remove }) => {
+    const pagamentoLink = `/ciclo-pagamento/${item._id}`
 
     return (
-        <tr key={item._id.toString()}>            
+        <tr>
             <td>{item.nome}</td>
             <td>{item.ano}</td>
             <td>{item.mes}</td>
@@ -16,7 +16,7 @@ const PagamentoRow = (item) => {
                     className="btn btn-success btn-brand icon mr-1 mb-1">
                     <i className="fa fa-edit"></i>
                 </Link>
-                <Button className="btn btn-danger btn-brand icon mr-1 mb-1"><i className="fa fa-trash-o"></i></Button>
+                <Button className="btn btn-danger btn-brand icon mr-1 mb-1" onClick={() => remove(item._id)}><i className="fa fa-trash-o"></i></Button>
             </td>
         </tr>
     )
@@ -38,8 +38,10 @@ class Lista extends Component {
         this.setState({ pagamentos: response.data });
     }
 
-    deletePagamento = (id) => {
+    deletePagamento = async (id) => {
+        await api.delete(`/cicloPagamentos/${id}`);
 
+        this.setState({ pagamentos: this.state.pagamentos.filter(item => item._id && item._id !== id) });
     }
 
     render() {
@@ -62,7 +64,7 @@ class Lista extends Component {
                             <CardBody>
                                 <Table responsive hover>
                                     <thead>
-                                        <tr>                                            
+                                        <tr>
                                             <th scope="col">Nome</th>
                                             <th scope="col">Mês</th>
                                             <th scope="col">Ano</th>
@@ -70,7 +72,7 @@ class Lista extends Component {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {this.state.pagamentos.map(PagamentoRow)}
+                                        {this.state.pagamentos.map(item => (<PagamentoRow key={item._id} item={item} remove={this.deletePagamento} />))}
                                     </tbody>
                                 </Table>
                             </CardBody>

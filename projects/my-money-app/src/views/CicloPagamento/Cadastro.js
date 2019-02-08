@@ -14,6 +14,8 @@ import {
 import Summary from './Summary';
 import ItemDebList from './ItemDebList';
 import ItemCredList from './ItemCredList';
+import api from '../../services/api';
+
 
 class Cadastro extends Component {
 
@@ -26,6 +28,10 @@ class Cadastro extends Component {
         debitos: []
     };
 
+    componentDidMount() {
+
+    }
+
     calculateSummary() {
         const sum = (t, v) => t + v;
         return {
@@ -36,6 +42,18 @@ class Cadastro extends Component {
 
     handleInputChange = e => {
         this.setState({ [e.target]: e.target.value });
+    }
+
+    handleCreate = async () => {
+        const { nome, mes, ano, creditos, debitos } = this.state;
+
+        await api.post('/cicloPagamentos', {
+            nome,
+            mes,
+            ano,
+            creditos,
+            debitos
+        });
     }
 
     render() {
@@ -110,7 +128,7 @@ class Cadastro extends Component {
                                 </Row>
                                 <Row>
                                     <Col>
-                                        <Button className="btn btn-block btn-success">Salvar</Button>
+                                        <Button className="btn btn-block btn-success" onClick={this.handleCreate}>Salvar</Button>
                                     </Col>
                                 </Row>
                             </CardBody>

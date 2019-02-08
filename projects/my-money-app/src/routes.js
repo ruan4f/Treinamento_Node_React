@@ -11,7 +11,7 @@ const routes = [
   { path: '/dashboard', name: 'Dashboard', component: Dashboard },
   { path: '/ciclo-pagamento', exact: true, name: 'Ciclo de Pagamento', component: Lista },
   { path: '/ciclo-pagamento/novo', name: 'Novo', component: Cadastro },
-  { path: '/ciclo-pagamento/:id(\\d+)', name: 'Edição', component: Cadastro },
+  { path: '/ciclo-pagamento/:id', name: 'Edição', component: Cadastro },
 ];
 
 export default routes;
