@@ -20,6 +20,7 @@ import api from '../../services/api';
 class Cadastro extends Component {
 
     state = {
+        titulo: 'Novo Pagamento',
         _id: '',
         nome: '',
         mes: 1,
@@ -29,7 +30,23 @@ class Cadastro extends Component {
     };
 
     componentDidMount() {
+        const { id } = this.props.match.params;
 
+        if (id) {
+            api.get(`/cicloPagamentos/${id}`)
+                .then(res => {
+                    const { _id, nome, mes, ano, creditos, debitos } = res.data;
+                    this.setState({ _id, nome, mes, ano, creditos, debitos, titulo: 'Editar Pagamento' });
+                })
+                .catch(error => {
+                    this.setState({
+                        _id: id,
+                        titulo: 'Editar Pagamento'
+                    });
+                });
+        } else {
+            this.setState({ titulo: 'Novo Pagamento' });
+        }
     }
 
     calculateSummary() {
@@ -41,19 +58,29 @@ class Cadastro extends Component {
     }
 
     handleInputChange = e => {
-        this.setState({ [e.target]: e.target.value });
+        this.setState({ [e.target.name]: e.target.value });
     }
 
     handleCreate = async () => {
-        const { nome, mes, ano, creditos, debitos } = this.state;
+        const { _id, nome, mes, ano, creditos, debitos } = this.state;
 
-        await api.post('/cicloPagamentos', {
-            nome,
-            mes,
-            ano,
-            creditos,
-            debitos
-        });
+        if (_id) {
+            await api.put(`/cicloPagamentos/${_id}`, {
+                nome,
+                mes,
+                ano,
+                creditos,
+                debitos
+            });
+        } else {
+            await api.post('/cicloPagamentos', {
+                nome,
+                mes,
+                ano,
+                creditos,
+                debitos
+            });
+        }
     }
 
     render() {
@@ -65,7 +92,7 @@ class Cadastro extends Component {
                     <Col xs="12" sm="12">
                         <Card>
                             <CardHeader>
-                                <strong>Novo Pagamento</strong>
+                                <strong>{this.state.titulo}</strong>
                                 <span className="pull-right">
                                     <Link
                                         to={'/ciclo-pagamento'}
@@ -78,8 +105,8 @@ class Cadastro extends Component {
                                 <Row>
                                     <Col xs="12">
                                         <FormGroup>
-                                            <Label htmlFor="name">Nome</Label>
-                                            <Input type="text" id="name"
+                                            <Label htmlFor="nome">Nome</Label>
+                                            <Input type="text" name="nome" id="nome"
                                                 onChange={this.handleInputChange}
                                                 value={this.state.nome}
                                                 placeholder="Entre com o nome do pagamento" />
@@ -89,8 +116,10 @@ class Cadastro extends Component {
                                 <Row>
                                     <Col xs="6">
                                         <FormGroup>
-                                            <Label htmlFor="ccmonth">Mês</Label>
-                                            <Input type="select" name="ccmonth" id="ccmonth">
+                                            <Label htmlFor="mes">Mês</Label>
+                                            <Input type="select" name="mes" id="mes" 
+                                                value={this.state.mes} 
+                                                onChange={this.handleInputChange}>
                                                 <option value="1">1</option>
                                                 <option value="2">2</option>
                                                 <option value="3">3</option>
@@ -108,8 +137,10 @@ class Cadastro extends Component {
                                     </Col>
                                     <Col xs="6">
                                         <FormGroup>
-                                            <Label htmlFor="ccyear">Ano</Label>
-                                            <Input type="select" name="ccyear" id="ccyear">
+                                            <Label htmlFor="ano">Ano</Label>
+                                            <Input type="select" name="ano" id="ano" 
+                                                value={this.state.ano}
+                                                onChange={this.handleInputChange}>
                                                 <option>2017</option>
                                                 <option>2018</option>
                                                 <option>2019</option>
