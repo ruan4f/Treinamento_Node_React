@@ -7,53 +7,95 @@ import {
     CardHeader,
     FormGroup,
     Input,
+    Row,
+    Col,
+    Label
 } from 'reactstrap';
 
-const ItemRow = (item) => {
-    return (
-        <tr key={item._id}>
-            <td>
-                <FormGroup>
-                    <Input type="text"
-                        value={item.nome}
-                        placeholder="Informe o nome" />
-                </FormGroup>
-            </td>
-            <td>
-                <FormGroup>
-                    <Input type="text"
-                        value={item.valor}
-                        placeholder="Informe o valor" />
-                </FormGroup>
-            </td>
-            <td>
-                <FormGroup>
-                    <Input type="select" name="ccmonth" id="ccmonth">
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                    </Input>
-                </FormGroup>
-            </td>
-            <td>
-                <Button className="btn btn-success btn-brand icon mr-1 mb-1"><i className="fa fa-plus"></i></Button>
-                <Button className="btn btn-danger btn-brand icon mr-1 mb-1"><i className="fa fa-trash-o"></i></Button>
-            </td>
-        </tr>
-    )
-}
+export default class ItemDebList extends Component {
 
-class ItemDebList extends Component {
+    state = {
+        nome: '',
+        valor: 0,
+        status: ''
+    }
+
+    add = () => {
+        const { nome, valor, status } = this.state;
+        if (nome && nome !== '' && valor > 0 && status) {
+            this.props.add(this.state);
+            this.setState({ nome: '', valor: 0, status: '' });
+        }
+    }
+
+    remove = (index) => {
+        if (this.props.list.length > 0) {
+            this.props.remove(index);
+        }
+    }
+
+    handleInputChange = (event) => {
+        this.setState({ [event.target.name]: event.target.value });
+    }
+
+    renderRows = () => {
+        const list = this.props.list || [];
+
+        return list.map((item, index) => (
+            <tr key={index}>
+                <td>{item.nome}</td>
+                <td>{item.valor}</td>
+                <td>{item.status}</td>
+                <td>
+                    <Button className="btn btn-danger btn-brand icon mr-1 mb-1" onClick={() => this.remove(index)}><i className="fa fa-trash-o"></i></Button>
+                </td>
+            </tr>
+        ))
+    }
 
     render() {
-        const debtsList = [{ _id: '', name: '', value: 0, status: '' }];
-
         return (
             <Card>
                 <CardHeader>
-                    <strong>Débitos</strong>
+                    <strong>Créditos</strong>
+                    <span className="pull-right">
+                        <Button className="btn btn-success btn-brand icon mr-1 mb-1 align-bottom" onClick={this.add}><i className="fa fa-plus"></i></Button>
+                    </span>
                 </CardHeader>
                 <CardBody>
+                    <Row>
+                        <Col>
+                            <FormGroup>
+                                <Label htmlFor="nome">Nome</Label>
+                                <Input type="text" name="nome" id="nome"
+                                    onChange={this.handleInputChange}
+                                    value={this.state.nome}
+                                    placeholder="Informe o nome" />
+                            </FormGroup>
+                        </Col>
+                        <Col>
+                            <FormGroup>
+                                <Label htmlFor="valor">Valor</Label>
+                                <Input type="text" name="valor" id="valor"
+                                    onChange={this.handleInputChange}
+                                    value={this.state.valor}
+                                    placeholder="Informe o valor" />
+                            </FormGroup>
+                        </Col>
+                        <Col>
+                            <FormGroup>
+                                <Label htmlFor="status">Status</Label>
+                                <Input type="select" name="status" id="status"
+                                    value={this.state.status}
+                                    onChange={this.handleInputChange}>
+                                    <option value="PAGO">PAGO</option>
+                                    <option value="PENDENTE">PENDENTE</option>
+                                    <option value="AGENDADO">AGENDADO</option>
+                                </Input>
+                            </FormGroup>
+                        </Col>
+                    </Row>
+
                     <Table responsive hover>
                         <thead>
                             <tr>
@@ -64,13 +106,11 @@ class ItemDebList extends Component {
                             </tr>
                         </thead>
                         <tbody>
-                            {debtsList.map(ItemRow)}
+                            {this.renderRows()}
                         </tbody>
                     </Table>
                 </CardBody>
             </Card>
         )
     }
-}
-
-export default ItemDebList;
+};

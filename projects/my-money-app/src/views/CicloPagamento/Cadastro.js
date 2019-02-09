@@ -84,19 +84,29 @@ class Cadastro extends Component {
     }
 
     handleAddCredito = (item) => {
+        const { creditos } = this.state;
+
         this.setState({ creditos: [...creditos, item] });
     }
 
+    handleRemoveCredito = (index) => {
+        const { creditos } = this.state;
+        creditos.splice(index, 1);
+
+        this.setState({ creditos });
+    }
+
     handleAddDedito = (item) => {
+        const { debitos } = this.state;
+
         this.setState({ debitos: [...debitos, item] });
     }
 
-    handleRemoveCredito = (index) => {
-        this.setState({});
-    }
-
     handleRemoveDedito = (index) => {
+        const { debitos } = this.state;
+        debitos.splice(index, 1);
 
+        this.setState({ debitos });
     }
 
     render() {

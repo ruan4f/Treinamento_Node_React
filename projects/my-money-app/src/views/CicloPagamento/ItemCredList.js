@@ -7,18 +7,35 @@ import {
   CardHeader,
   FormGroup,
   Input,
+  Row,
+  Col,
+  Label
 } from 'reactstrap';
 
-export default class ItemDebList extends Component {
+export default class ItemCredList extends Component {
 
-  add = (index, item = {}) => {
-    this.props.add(index, item);
+  state = {
+    nome: '',
+    valor: 0
+  }
+
+  add = () => {
+    const { nome, valor } = this.state;
+    if (nome && nome !== '' && valor > 0) {
+      this.props.add(this.state);
+
+      this.setState({ nome: '', valor: 0 });
+    }
   }
 
   remove = (index) => {
-    if (this.props.list.length > 1) {
+    if (this.props.list.length > 0) {
       this.props.remove(index);
     }
+  }
+
+  handleInputChange = (event) => {
+    this.setState({ [event.target.name]: event.target.value });
   }
 
   renderRows = () => {
@@ -26,38 +43,46 @@ export default class ItemDebList extends Component {
 
     return list.map((item, index) => (
       <tr key={index}>
+        <td>{item.nome}</td>
+        <td>{item.valor}</td>
         <td>
-          <FormGroup>
-            <Input type="text" id="nome" placeholder="Informe o nome" required />
-          </FormGroup>
-        </td>
-        <td>
-          <FormGroup>
-            <Input type="text" id="valor" placeholder="Informe o valor" required />
-          </FormGroup>
-        </td>
-        <td>
-          <Button className="btn btn-success btn-brand icon mr-1 mb-1"
-            onClick={() => this.add(index + 1, item)}>
-            <i className="fa fa-plus"></i>
-          </Button>
-          <Button className="btn btn-danger btn-brand icon mr-1 mb-1"
-            onClick={() => this.remove(index)}>
-            <i className="fa fa-trash-o"></i>
-          </Button>
+          <Button className="btn btn-danger btn-brand icon mr-1 mb-1" onClick={() => this.remove(index)}><i className="fa fa-trash-o"></i></Button>
         </td>
       </tr>
     ))
   }
 
   render() {
-
     return (
       <Card>
         <CardHeader>
           <strong>Créditos</strong>
+          <span className="pull-right">
+            <Button className="btn btn-success btn-brand icon mr-1 mb-1 align-bottom" onClick={this.add}><i className="fa fa-plus"></i></Button>
+          </span>
         </CardHeader>
         <CardBody>
+          <Row>
+            <Col>
+              <FormGroup>
+                <Label htmlFor="nome">Nome</Label>
+                <Input type="text" name="nome" id="nome"
+                  onChange={this.handleInputChange}
+                  value={this.state.nome}
+                  placeholder="Informe o nome" />
+              </FormGroup>
+            </Col>
+            <Col>
+              <FormGroup>
+                <Label htmlFor="valor">Valor</Label>
+                <Input type="text" name="valor" id="valor"
+                  onChange={this.handleInputChange}
+                  value={this.state.valor}
+                  placeholder="Informe o valor" />
+              </FormGroup>
+            </Col>
+          </Row>
+
           <Table responsive hover>
             <thead>
               <tr>
