@@ -1,6 +1,7 @@
 import React, { Component, Suspense } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { Container } from 'reactstrap';
+import { ToastContainer } from 'react-toastify';
 
 import {
   AppBreadcrumb,
@@ -49,7 +50,8 @@ class DefaultLayout extends Component {
             <AppSidebarMinimizer />
           </AppSidebar>
           <main className="main">
-            <AppBreadcrumb appRoutes={routes} />
+            <AppBreadcrumb appRoutes={routes} />            
+            <ToastContainer />
             <Container fluid>
               <Suspense fallback={this.loading()}>
                 <Switch>
