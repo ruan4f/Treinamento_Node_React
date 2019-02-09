@@ -11,11 +11,13 @@ import {
     Label,
     Row,
 } from 'reactstrap';
+import { toast } from 'react-toastify';
 import Summary from './Summary';
 import ItemDebList from './ItemDebList';
 import ItemCredList from './ItemCredList';
 import api from '../../services/api';
 
+const ANO = 2019;
 
 class Cadastro extends Component {
 
@@ -59,6 +61,10 @@ class Cadastro extends Component {
         this.setState({ [e.target.name]: e.target.value });
     }
 
+    clearState = () => {
+        this.setState({ nome: '', mes: '', ano: ANO, creditos: [], debitos: [] });
+    }
+
     handleCreate = async () => {
         const { _id, nome, mes, ano, creditos, debitos } = this.state;
 
@@ -77,6 +83,11 @@ class Cadastro extends Component {
                 ano,
                 creditos,
                 debitos
+            }).then(res => {
+                this.clearState();
+            }).catch(error => {
+                //toast.error(error.response.data.message, { position: 'top-center', className: 'danger' });
+                toast.error('Dados do pagamento inválido!', { position: 'top-center', className: 'danger' });
             });
         }
     }
