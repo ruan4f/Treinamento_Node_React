@@ -44,8 +44,6 @@ class Cadastro extends Component {
                         titulo: 'Editar Pagamento'
                     });
                 });
-        } else {
-            this.setState({ titulo: 'Novo Pagamento' });
         }
     }
 

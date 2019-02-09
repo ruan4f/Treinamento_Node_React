@@ -57,7 +57,7 @@ export default class ItemDebList extends Component {
         return (
             <Card>
                 <CardHeader>
-                    <strong>Créditos</strong>
+                    <strong>Débitos</strong>
                     <span className="pull-right">
                         <Button className="btn btn-success btn-brand icon mr-1 mb-1 align-bottom" onClick={this.add}><i className="fa fa-plus"></i></Button>
                     </span>
