@@ -18,11 +18,13 @@ import ItemCredList from './ItemCredList';
 import api from '../../services/api';
 
 const ANO = 2019;
+const TITULO_NOVO = 'Novo Pagamento';
+const TITULO_EDICAO = 'Editar Pagamento';
 
 class Cadastro extends Component {
 
     state = {
-        titulo: 'Novo Pagamento',
+        titulo: TITULO_NOVO,
         _id: '',
         nome: '',
         mes: 1,
@@ -38,13 +40,15 @@ class Cadastro extends Component {
             api.get(`/cicloPagamentos/${id}`)
                 .then(res => {
                     const { _id, nome, mes, ano, creditos, debitos } = res.data;
-                    this.setState({ _id, nome, mes, ano, creditos, debitos, titulo: 'Editar Pagamento' });
+                    this.setState({ _id, nome, mes, ano, creditos, debitos, titulo: TITULO_EDICAO });
+
                 })
                 .catch(error => {
                     this.setState({
                         _id: id,
-                        titulo: 'Editar Pagamento'
+                        titulo: TITULO_EDICAO
                     });
+                    toast.error('Erro ao obter dados do pagamento!', { position: 'top-center', className: 'danger' });
                 });
         }
     }
@@ -75,7 +79,14 @@ class Cadastro extends Component {
                 ano,
                 creditos,
                 debitos
-            });
+            })
+                .then(res => {
+                    //this.clearState();
+                    toast.success('Dados atualizados com sucesso!', { position: 'top-center', className: 'success' });
+                }).catch(error => {
+                    //toast.error(error.response.data.message, { position: 'top-center', className: 'danger' });
+                    toast.error('Dados do pagamento inválido!', { position: 'top-center', className: 'danger' });
+                });
         } else {
             await api.post('/cicloPagamentos', {
                 nome,
@@ -84,7 +95,9 @@ class Cadastro extends Component {
                 creditos,
                 debitos
             }).then(res => {
-                this.clearState();
+                //this.clearState();
+                this.setState({ _id: res.data._id, titulo: TITULO_EDICAO });
+                toast.success('Pagamento criado com sucesso!', { position: 'top-center', className: 'success' });
             }).catch(error => {
                 //toast.error(error.response.data.message, { position: 'top-center', className: 'danger' });
                 toast.error('Dados do pagamento inválido!', { position: 'top-center', className: 'danger' });
