@@ -16,6 +16,7 @@ import Summary from './Summary';
 import ItemDebList from './ItemDebList';
 import ItemCredList from './ItemCredList';
 import api from '../../services/api';
+import { loadingService } from '../../components';
 
 const ANO = 2019;
 const TITULO_NOVO = 'Novo Pagamento';
@@ -37,13 +38,15 @@ class Cadastro extends Component {
         const { id } = this.props.match.params;
 
         if (id) {
+            loadingService.show();
             api.get(`/cicloPagamentos/${id}`)
                 .then(res => {
+                    loadingService.hide();
                     const { _id, nome, mes, ano, creditos, debitos } = res.data;
-                    this.setState({ _id, nome, mes, ano, creditos, debitos, titulo: TITULO_EDICAO });
-
+                    this.setState({ _id, nome, mes, ano, creditos, debitos, titulo: TITULO_EDICAO });                    
                 })
                 .catch(error => {
+                    loadingService.hide();
                     this.setState({
                         _id: id,
                         titulo: TITULO_EDICAO
@@ -72,6 +75,7 @@ class Cadastro extends Component {
     handleCreate = async () => {
         const { _id, nome, mes, ano, creditos, debitos } = this.state;
 
+        loadingService.show();
         if (_id) {
             await api.put(`/cicloPagamentos/${_id}`, {
                 nome,
@@ -81,11 +85,15 @@ class Cadastro extends Component {
                 debitos
             })
                 .then(res => {
+                    loadingService.hide();
+
                     //this.clearState();
-                    toast.success('Dados atualizados com sucesso!', { position: 'top-center', className: 'success' });
+                    toast.success('Dados atualizados com sucesso!', { position: 'top-center', className: 'success' });                    
                 }).catch(error => {
+                    loadingService.hide();
+
                     //toast.error(error.response.data.message, { position: 'top-center', className: 'danger' });
-                    toast.error('Dados do pagamento inválido!', { position: 'top-center', className: 'danger' });
+                    toast.error('Dados do pagamento inválido!', { position: 'top-center', className: 'danger' });                    
                 });
         } else {
             await api.post('/cicloPagamentos', {
@@ -95,10 +103,14 @@ class Cadastro extends Component {
                 creditos,
                 debitos
             }).then(res => {
+                loadingService.hide();
+
                 //this.clearState();
                 this.setState({ _id: res.data._id, titulo: TITULO_EDICAO });
                 toast.success('Pagamento criado com sucesso!', { position: 'top-center', className: 'success' });
             }).catch(error => {
+                loadingService.hide();
+
                 //toast.error(error.response.data.message, { position: 'top-center', className: 'danger' });
                 toast.error('Dados do pagamento inválido!', { position: 'top-center', className: 'danger' });
             });

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Button, Card, CardBody, CardHeader, Col, Row, Table } from 'reactstrap';
 import { toast } from 'react-toastify';
 import api from '../../services/api';
+import { loadingService } from '../../components';
 
 const PagamentoRow = ({ item, remover }) => {
     const pagamentoLink = `/ciclo-pagamento/${item._id}`
@@ -34,22 +35,28 @@ class Lista extends Component {
     }
 
     listarPagamentos = () => {
+        loadingService.show();
         api.get('/cicloPagamentos')
             .then(res => {
                 this.setState({ pagamentos: res.data });
+                loadingService.hide();
             })
             .catch(error => {
                 toast.error('Erro ao obter a lista de pagamentos!', { position: 'top-center', className: 'danger' });
+                loadingService.hide();
             });
     }
 
     excluirPagamento = (id) => {
+        loadingService.show();
         api.delete(`/cicloPagamentos/${id}`)
             .then(res => {
                 toast.success('Registro excluído com sucesso!', { position: 'top-center', className: 'success' });
+                loadingService.hide();
             })
             .catch(error => {
                 toast.error('Dados do pagamento inválido!', { position: 'top-center', className: 'danger' });
+                loadingService.hide();
             });
 
         this.setState({ pagamentos: this.state.pagamentos.filter(item => item._id && item._id !== id) });

@@ -1,9 +1,9 @@
 import React from 'react';
-import { spinnerService } from './LoadingService';
-import './loading.css';
+import { loadingService } from './LoadingService';
+import './Loading.css';
 
-export default class SpinnerSismed extends React.Component {
-  spinnerService = spinnerService;
+export default class Loading extends React.Component {
+  loadingService = loadingService;
 
   constructor(props) {
     super(props);
@@ -34,15 +34,15 @@ export default class SpinnerSismed extends React.Component {
       show: this.props.hasOwnProperty('show') ? this.props.show : false
     });
 
-    if (this.props.hasOwnProperty('spinnerService')) {
-      this.spinnerService = this.props.spinnerService;
+    if (this.props.hasOwnProperty('loadingService')) {
+      this.loadingService = this.props.loadingService;
     }
 
-    this.spinnerService._register(this);
+    this.loadingService._register(this);
   }
 
   componentWillUnmount() {
-    this.spinnerService._unregister(this);
+    this.loadingService._unregister(this);
   }
 
   render() {
