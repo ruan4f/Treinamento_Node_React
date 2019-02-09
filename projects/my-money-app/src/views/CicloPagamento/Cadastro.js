@@ -49,7 +49,7 @@ class Cadastro extends Component {
         }
     }
 
-    calculateSummary() {
+    calculateSummary = () => {
         const sum = (t, v) => t + v;
         return {
             somaCreditos: this.state.creditos.map(c => + c.valor || 0).reduce(sum, 0),
@@ -81,6 +81,22 @@ class Cadastro extends Component {
                 debitos
             });
         }
+    }
+
+    handleAddCredito = (item) => {
+        this.setState({ creditos: [...creditos, item] });
+    }
+
+    handleAddDedito = (item) => {
+        this.setState({ debitos: [...debitos, item] });
+    }
+
+    handleRemoveCredito = (index) => {
+        this.setState({});
+    }
+
+    handleRemoveDedito = (index) => {
+
     }
 
     render() {
@@ -117,8 +133,8 @@ class Cadastro extends Component {
                                     <Col xs="6">
                                         <FormGroup>
                                             <Label htmlFor="mes">Mês</Label>
-                                            <Input type="select" name="mes" id="mes" 
-                                                value={this.state.mes} 
+                                            <Input type="select" name="mes" id="mes"
+                                                value={this.state.mes}
                                                 onChange={this.handleInputChange}>
                                                 <option value="1">1</option>
                                                 <option value="2">2</option>
@@ -138,7 +154,7 @@ class Cadastro extends Component {
                                     <Col xs="6">
                                         <FormGroup>
                                             <Label htmlFor="ano">Ano</Label>
-                                            <Input type="select" name="ano" id="ano" 
+                                            <Input type="select" name="ano" id="ano"
                                                 value={this.state.ano}
                                                 onChange={this.handleInputChange}>
                                                 <option>2017</option>
@@ -182,10 +198,18 @@ class Cadastro extends Component {
 
                 <Row>
                     <Col xs="12" sm="6" lg="6">
-                        <ItemCredList />
+                        <ItemCredList
+                            list={this.state.creditos}
+                            add={this.handleAddCredito}
+                            remove={this.handleRemoveCredito}
+                        />
                     </Col>
                     <Col xs="12" sm="6" lg="6">
-                        <ItemDebList />
+                        <ItemDebList
+                            list={this.state.debitos}
+                            add={this.handleAddDedito}
+                            remove={this.handleRemoveDedito}
+                        />
                     </Col>
                 </Row>
             </div>

@@ -9,31 +9,48 @@ import {
   Input,
 } from 'reactstrap';
 
-const ItemRow = (item) => {
-  return (
-    <tr key={item._id}>
-      <td>
-        <FormGroup>
-          <Input type="text" id="nome" placeholder="Informe o nome" required />
-        </FormGroup>
-      </td>
-      <td>
-        <FormGroup>
-          <Input type="text" id="valor" placeholder="Informe o valor" required />
-        </FormGroup>
-      </td>
-      <td>
-        <Button className="btn btn-success btn-brand icon mr-1 mb-1"><i className="fa fa-plus"></i></Button>
-        <Button className="btn btn-danger btn-brand icon mr-1 mb-1"><i className="fa fa-trash-o"></i></Button>
-      </td>
-    </tr>
-  )
-}
+export default class ItemDebList extends Component {
 
-class ItemDebList extends Component {
+  add = (index, item = {}) => {
+    this.props.add(index, item);
+  }
+
+  remove = (index) => {
+    if (this.props.list.length > 1) {
+      this.props.remove(index);
+    }
+  }
+
+  renderRows = () => {
+    const list = this.props.list || [];
+
+    return list.map((item, index) => (
+      <tr key={index}>
+        <td>
+          <FormGroup>
+            <Input type="text" id="nome" placeholder="Informe o nome" required />
+          </FormGroup>
+        </td>
+        <td>
+          <FormGroup>
+            <Input type="text" id="valor" placeholder="Informe o valor" required />
+          </FormGroup>
+        </td>
+        <td>
+          <Button className="btn btn-success btn-brand icon mr-1 mb-1"
+            onClick={() => this.add(index + 1, item)}>
+            <i className="fa fa-plus"></i>
+          </Button>
+          <Button className="btn btn-danger btn-brand icon mr-1 mb-1"
+            onClick={() => this.remove(index)}>
+            <i className="fa fa-trash-o"></i>
+          </Button>
+        </td>
+      </tr>
+    ))
+  }
 
   render() {
-    const credsList = [{ _id: '', name: '', value: 0 }];
 
     return (
       <Card>
@@ -50,13 +67,11 @@ class ItemDebList extends Component {
               </tr>
             </thead>
             <tbody>
-              {credsList.map(ItemRow)}
+              {this.renderRows()}
             </tbody>
           </Table>
         </CardBody>
       </Card>
     )
   }
-}
-
-export default ItemDebList;
+};
