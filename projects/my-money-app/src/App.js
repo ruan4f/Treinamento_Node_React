@@ -3,6 +3,7 @@ import { HashRouter, Route, Switch } from 'react-router-dom';
 // import { renderRoutes } from 'react-router-config';
 import Loadable from 'react-loadable';
 import './App.scss';
+import 'react-toastify/dist/ReactToastify.css';
 
 const loading = () => <div className="animated fadeIn pt-3 text-center">Loading...</div>;
 

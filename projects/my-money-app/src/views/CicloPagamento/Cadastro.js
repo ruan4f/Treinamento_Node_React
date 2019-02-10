@@ -11,16 +11,21 @@ import {
     Label,
     Row,
 } from 'reactstrap';
+import { toast } from 'react-toastify';
 import Summary from './Summary';
 import ItemDebList from './ItemDebList';
 import ItemCredList from './ItemCredList';
 import api from '../../services/api';
+import { loadingService } from '../../components';
 
+const ANO = 2019;
+const TITULO_NOVO = 'Novo Pagamento';
+const TITULO_EDICAO = 'Editar Pagamento';
 
 class Cadastro extends Component {
 
     state = {
-        titulo: 'Novo Pagamento',
+        titulo: TITULO_NOVO,
         _id: '',
         nome: '',
         mes: 1,
@@ -33,19 +38,21 @@ class Cadastro extends Component {
         const { id } = this.props.match.params;
 
         if (id) {
+            loadingService.show();
             api.get(`/cicloPagamentos/${id}`)
                 .then(res => {
+                    loadingService.hide();
                     const { _id, nome, mes, ano, creditos, debitos } = res.data;
-                    this.setState({ _id, nome, mes, ano, creditos, debitos, titulo: 'Editar Pagamento' });
+                    this.setState({ _id, nome, mes, ano, creditos, debitos, titulo: TITULO_EDICAO });                    
                 })
                 .catch(error => {
+                    loadingService.hide();
                     this.setState({
                         _id: id,
-                        titulo: 'Editar Pagamento'
+                        titulo: TITULO_EDICAO
                     });
+                    toast.error('Erro ao obter dados do pagamento!', { position: 'top-center', className: 'danger' });
                 });
-        } else {
-            this.setState({ titulo: 'Novo Pagamento' });
         }
     }
 
@@ -61,9 +68,14 @@ class Cadastro extends Component {
         this.setState({ [e.target.name]: e.target.value });
     }
 
+    clearState = () => {
+        this.setState({ nome: '', mes: '', ano: ANO, creditos: [], debitos: [] });
+    }
+
     handleCreate = async () => {
         const { _id, nome, mes, ano, creditos, debitos } = this.state;
 
+        loadingService.show();
         if (_id) {
             await api.put(`/cicloPagamentos/${_id}`, {
                 nome,
@@ -71,7 +83,18 @@ class Cadastro extends Component {
                 ano,
                 creditos,
                 debitos
-            });
+            })
+                .then(res => {
+                    loadingService.hide();
+
+                    //this.clearState();
+                    toast.success('Dados atualizados com sucesso!', { position: 'top-center', className: 'success' });                    
+                }).catch(error => {
+                    loadingService.hide();
+
+                    //toast.error(error.response.data.message, { position: 'top-center', className: 'danger' });
+                    toast.error('Dados do pagamento inválido!', { position: 'top-center', className: 'danger' });                    
+                });
         } else {
             await api.post('/cicloPagamentos', {
                 nome,
@@ -79,6 +102,17 @@ class Cadastro extends Component {
                 ano,
                 creditos,
                 debitos
+            }).then(res => {
+                loadingService.hide();
+
+                //this.clearState();
+                this.setState({ _id: res.data._id, titulo: TITULO_EDICAO });
+                toast.success('Pagamento criado com sucesso!', { position: 'top-center', className: 'success' });
+            }).catch(error => {
+                loadingService.hide();
+
+                //toast.error(error.response.data.message, { position: 'top-center', className: 'danger' });
+                toast.error('Dados do pagamento inválido!', { position: 'top-center', className: 'danger' });
             });
         }
     }

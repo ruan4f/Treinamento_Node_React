@@ -4,6 +4,8 @@ cicloPagamento.methods(['get','post','put', 'delete'])
 
 cicloPagamento.updateOptions({new: true, runValidators: true  })
 
+
+
 cicloPagamento.route('count',(req,res,next) => {
     cicloPagamento.count((error, value) => {
             if(error){
@@ -14,6 +16,7 @@ cicloPagamento.route('count',(req,res,next) => {
 
     })
 })
+
 
 cicloPagamento.route('summary', (req, res, next) => {
    cicloPagamento.aggregate({

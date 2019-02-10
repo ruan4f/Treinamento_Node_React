@@ -9,7 +9,7 @@ const Cadastro = React.lazy(() => import('./views/CicloPagamento/Cadastro'));
 const routes = [
   { path: '/', exact: true, name: 'Home', component: DefaultLayout },
   { path: '/dashboard', name: 'Dashboard', component: Dashboard },
-  { path: '/ciclo-pagamento', exact: true, name: 'Ciclo de Pagamento', component: Lista },
+  { path: '/ciclo-pagamento', exact: true, name: 'Pagamentos', component: Lista },
   { path: '/ciclo-pagamento/novo', name: 'Novo', component: Cadastro },
   { path: '/ciclo-pagamento/:id', name: 'Edição', component: Cadastro },
 ];

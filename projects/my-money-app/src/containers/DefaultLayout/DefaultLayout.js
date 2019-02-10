@@ -1,6 +1,8 @@
 import React, { Component, Suspense } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { Container } from 'reactstrap';
+import { ToastContainer } from 'react-toastify';
+import { Loading } from '../../components';
 
 import {
   AppBreadcrumb,
@@ -50,6 +52,8 @@ class DefaultLayout extends Component {
           </AppSidebar>
           <main className="main">
             <AppBreadcrumb appRoutes={routes} />
+            <Loading/>
+            <ToastContainer />
             <Container fluid>
               <Suspense fallback={this.loading()}>
                 <Switch>
