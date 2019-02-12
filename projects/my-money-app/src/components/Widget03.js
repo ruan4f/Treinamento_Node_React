@@ -29,7 +29,6 @@ class Widget03 extends Component {
     }
 
     const back = 'bg-' + variant;
-    const icon = 'fa fa-' + variant;
     const keys = Object.keys(data);
     const vals = Object.values(data);
 
@@ -39,22 +38,21 @@ class Widget03 extends Component {
     const classes = mapToCssModules(classNames(classCard, className), cssModule);
 
     return (
-      <div className={classes}>
+      <div className={classes} >
         <div className={classCardHeader}>
-          <i className={icon}></i>
-          {children}
+          <strong style={{color: 'white', fontSize: 22}}>Dados gerais de Pagamentos</strong>
         </div>
         <div className={classCardBody}>
           <div>
-            <div className="text-value">{vals[1]}</div>
+            <div className="text-value">R$ {vals[1]}</div>
             <div className="text-uppercase text-muted small">{keys[1]}</div>
           </div>
           <div>
-            <div className="text-value">{vals[2]}</div>
+            <div className="text-value">R$ {vals[2]}</div>
             <div className="text-uppercase text-muted small">{keys[2]}</div>
           </div>
           <div>
-            <div className="text-value">{vals[3]}</div>
+            <div className="text-value">R$ {vals[3]}</div>
             <div className="text-uppercase text-muted small">{keys[3]}</div>
           </div>
         </div>

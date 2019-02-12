@@ -3,6 +3,7 @@ import { Row, Container, Col } from 'reactstrap';
 import Widget03 from '../../components/Widget03';
 
 import api from '../../services/api';
+import { loadingService } from '../../components';
 
 class DashBoard extends Component {
 
@@ -17,9 +18,11 @@ class DashBoard extends Component {
   }
 
   listarSumario = () => {
+    loadingService.show();
     api.get('/cicloPagamentos/summary')
       .then(res => {
-        const { credito, debito } = this.state;
+        loadingService.hide();
+        const { credito, debito } = res.data;
         console.log(res.data);
 
         this.setState({
@@ -29,7 +32,7 @@ class DashBoard extends Component {
         });
       })
       .catch(error => {
-
+        loadingService.hide();
       });
   }
 
@@ -39,7 +42,7 @@ class DashBoard extends Component {
         <Container>
           <Row className="justify-content-center">
 
-            <Col xs="6" sm="6" lg="3">
+            <Col>
               <Widget03 dataBox={() => ({
                 variant: 'twitter',
                 credito: this.state.credito,
