@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Row, Container, Col } from 'reactstrap';
+import { toast } from 'react-toastify';
 import Widget03 from '../../components/Widget03';
 
 import api from '../../services/api';
@@ -33,6 +34,7 @@ class DashBoard extends Component {
       })
       .catch(error => {
         loadingService.hide();
+        toast.error('Erro ao obter dados de pagamentos!', { position: 'top-center', className: 'danger' });
       });
   }
 
