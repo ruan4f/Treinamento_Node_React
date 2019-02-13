@@ -11,7 +11,7 @@ export default class Autocomplete extends Component {
     showOptions: false,
     userInput: ''
   };
-  
+
   onChange = (e) => {
     const { options } = this.props;
     const userInput = e.currentTarget.value;
@@ -24,6 +24,36 @@ export default class Autocomplete extends Component {
       showOptions: true,
       userInput
     });
+  };
+
+  onClick = (e) => {
+    this.setState({
+      activeOption: 0,
+      filteredOption: [],
+      showOptions: false,
+      userInput: e.currentTarget.innerText
+    });
+  };
+
+  onKeyDown = (e) => {
+    const { activeOption, filteredOptions } = this.state;
+    if (e.keyCode === 13) {
+      this.setState({
+        activeOption: 0,
+        showSuggestions: false,
+        userInput: filteredOptions[activeOption]
+      });
+    } else if (e.keyCode === 38) {
+      if (activeOption === 0) {
+        return;
+      }
+      this.setState({ activeOption: activeOption - 1 });
+    } else if (e.keyCode === 40) {
+      if (activeOption - 1 === filteredOptions.length) {
+        return;
+      }
+      this.setState({ activeOption: activeOption + 1 });
+    }
   };
 
   render() {
