@@ -11,6 +11,21 @@ export default class Autocomplete extends Component {
     showOptions: false,
     userInput: ''
   };
+  
+  onChange = (e) => {
+    const { options } = this.props;
+    const userInput = e.currentTarget.value;
+    const filteredOptions = options.filter(
+      (option) => option.toLowerCase().indexOf(userInput.toLowerCase()) > -1
+    );
+    this.setState({
+      activeOption: 0,
+      filteredOptions,
+      showOptions: true,
+      userInput
+    });
+  };
+
   render() {
     const {
       onChange,
