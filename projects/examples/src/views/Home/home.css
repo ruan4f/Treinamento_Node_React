@@ -1,5 +1,5 @@
 .link-example {
-  width: 100%;
+  width: 80%;
   display: inline-block;
   font-weight: 400;
   color: #212529;
@@ -16,6 +16,7 @@
   line-height: 1.5;
   border-radius: .25rem;
   transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+  margin: 0.5rem;
 }
 
 .link-example-primary {
