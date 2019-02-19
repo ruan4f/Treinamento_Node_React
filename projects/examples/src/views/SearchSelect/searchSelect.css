@@ -1,6 +1,7 @@
-body {
-  background: #00b4cc;
+.back-search {
+  background-color: aqua;
 }
+
 .search {
   width: 30rem;
   margin: 10rem auto 2rem auto;

@@ -8,8 +8,8 @@ export default class Home extends Component {
   render() {
     return (
       <div>
-        <Link to="/">Home</Link>
-        <Link to="/search-select">Search Select</Link>
+        <Link className="link-example link-example-primary" to="/" >Home</Link>
+        <Link className="link-example link-example-primary" to="/search-select">Search Select</Link>
       </div>
     );
   }
