@@ -1,21 +1,20 @@
 import React from 'react';
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import './App.css';
-import AutoComplete from './components/AutoComplete';
+import Home from './views/Home/Home';
+import SearchSelect from './views/SearchSelect/SearchSelect';
+import DynamicList from './views/'
 
 const App = () => {
   return (
     <div className="App">
-      <AutoComplete
-        options={[
-          'Papaya',
-          'Persimmon',
-          'Paw Paw',
-          'Prickly Pear',
-          'Peach',
-          'Pomegranate',
-          'Pineapple'
-        ]}
-      />
+      <Router>
+        <Switch>
+          <Route exact path="/" component={Home} />          
+          <Route path="/search-select" component={SearchSelect} />
+          <Route path="/dymanic-list" component={DynamicList} />
+        </Switch>
+      </Router>     
     </div>
   );
 };
