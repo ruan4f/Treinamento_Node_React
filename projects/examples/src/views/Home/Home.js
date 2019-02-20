@@ -10,6 +10,7 @@ export default class Home extends Component {
       <React.Fragment>
         <Link className="link-example link-example-primary" to="/" >Home</Link>
         <Link className="link-example link-example-primary" to="/search-select">Search Select</Link>
+        <Link className="link-example link-example-primary" to="/dynamic-list">Dynamic List</Link>
       </React.Fragment>
     );
   }
