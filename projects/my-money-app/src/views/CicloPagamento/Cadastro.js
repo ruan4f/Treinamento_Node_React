@@ -72,12 +72,12 @@ class Cadastro extends Component {
         this.setState({ nome: '', mes: '', ano: ANO, creditos: [], debitos: [] });
     }
 
-    handleCreate = async () => {
+    handleCreate = () => {
         const { _id, nome, mes, ano, creditos, debitos } = this.state;
 
         loadingService.show();
         if (_id) {
-            await api.put(`/cicloPagamentos/${_id}`, {
+            api.put(`/cicloPagamentos/${_id}`, {
                 nome,
                 mes,
                 ano,
@@ -96,7 +96,7 @@ class Cadastro extends Component {
                     toast.error('Dados do pagamento inválido!', { position: 'top-center', className: 'danger' });                    
                 });
         } else {
-            await api.post('/cicloPagamentos', {
+            api.post('/cicloPagamentos', {
                 nome,
                 mes,
                 ano,
