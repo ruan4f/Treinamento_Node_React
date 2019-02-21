@@ -33,15 +33,17 @@ const data = [
 ]
 
 export default class DynamicList extends Component {
-  
+
   state = {
     list: data
   }
-  
+
   render() {
     return (
       <div>
-
+        <ul>
+          {this.state.list.map(item => <li key={item.id}>{item.description}</li>)}
+        </ul>
       </div>
     );
   }
